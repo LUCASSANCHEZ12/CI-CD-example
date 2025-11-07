@@ -1,1 +1,18 @@
 # Ci example
+name: Tag Info Example
+
+on:
+  push:
+    tags:
+      - '*' # Trigger on any tag push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
+
+    steps:
+      - name: Get tag info
+        run: |
+          echo "The pushed tag is: ${{ github.ref_name }}"
+          echo "The full tag ref is: ${{ github.ref }}"
