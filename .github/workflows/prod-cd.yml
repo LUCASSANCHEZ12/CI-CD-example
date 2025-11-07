@@ -4,8 +4,7 @@ name: Tag Info Example
 on:
   push:
     branches: [ "main" ]
-    tags:
-      - '*' # Trigger on any tag push
+    tags: prod
 
 jobs:
   deploy:
