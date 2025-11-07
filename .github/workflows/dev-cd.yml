@@ -12,7 +12,14 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
 
     steps:
+      - name: Get Tag Name
+        id: get_tag
+        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
       - name: Get tag info
         run: |
-          echo "The pushed tag is: ${{ github.ref_name }}"
+          echo "The pushed tag is: ${{ github.ref }}"
           echo "The full tag ref is: ${{ github.ref }}"
+
+      - name: Use Tag Name
+        run: echo "The tag name is ${{ steps.get_tag.outputs.tag }}"
