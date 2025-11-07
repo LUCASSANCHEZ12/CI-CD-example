@@ -12,14 +12,12 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
 
     steps:
-      - name: Get Tag Name
-        id: get_tag
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-
-      - name: Get tag info
+      - uses: actions/checkout@v2
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Test
         run: |
-          echo "The pushed tag is: ${{ github.ref }}"
-          echo "The full tag ref is: ${{ github.ref }}"
+          echo $RELEASE_VERSION
+          echo ${{ env.RELEASE_VERSION }}
 
-      - name: Use Tag Name
-        run: echo "The tag name is ${{ steps.get_tag.outputs.tag }}"
+          
