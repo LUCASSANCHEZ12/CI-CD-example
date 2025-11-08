@@ -1,9 +1,9 @@
 # Ci example
-name: Tag Info Example
+name: Environment example
 
 on:
   push:
-    tags: prod*
+    branches: main
 
 jobs:
   deploy:
@@ -11,15 +11,7 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development' }}
 
     steps:
-      - name: Get tag info
+      - name: Get env Vars for Prod
         run: |
-          echo "The pushed tag is: ${{ github.ref_name }}"
-          echo "The full tag ref is: ${{ github.ref }}"
-            - uses: actions/checkout@v2
-            
-      - name: Set env
-        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
-      - name: Test
-        run: |
-          echo $RELEASE_VERSION
-          echo ${{ env.RELEASE_VERSION }}         
+          echo "${{vars.ENV_VAR}}"
+          
