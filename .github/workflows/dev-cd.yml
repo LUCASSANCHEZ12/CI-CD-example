@@ -1,5 +1,5 @@
 # Ci example
-name: Environment example
+name: Dev Environment CD example
 
 on:
   push:
